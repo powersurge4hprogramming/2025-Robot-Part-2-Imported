@@ -4,6 +4,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.StatusSignal;
+import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.controls.PositionDutyCycle;
@@ -37,20 +38,17 @@ Climber REV Through Bore Encoder    Climber Output   DIO 0,1
     public ClimberSubsystem() {
         motor = new TalonFX (Constants.ClimberConstants.primaryMotorID, Constants.ClimberConstants.primaryMotorCAN);
         motor.setControl(motorOut);
-        // Remove follower because we're only using one Kraken right now
-//        follower = new TalonFX(Constants.ClimberConstants.followerMotorID, Constnats.ClimberConstants.followerMotorCAN);
-        motor.setNeutralMode(NeutralModeValue.Brake);
-//        follower.setNeutralMode(NeutralModeValue.Brake);
 
 
         TalonFXConfiguration motorConfig = new TalonFXConfiguration();
         motorConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
-/*
-        TalonFXConfiguration followerConfig = new TalonFXConfiguration();
-        follower.setControl (new Follower(motor.getDeviceID(), true)); 
-        follower.getConfigurator().apply(followerConfig);
-*/
         motor.getConfigurator().apply(motorConfig);
+
+        Slot0Configs slot = new Slot0Configs();
+        slot.kP = .1;
+        slot.kI = 0;
+        slot.kD = 0;
+        motor.getConfigurator().apply(slot);
         homeOffset = getCurrentPosition();
 
         lowerLimitSwitch = new DigitalInput(Constants.ClimberConstants.lowerLimitSwitchID);

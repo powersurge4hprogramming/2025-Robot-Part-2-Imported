@@ -33,7 +33,7 @@ public class SwerveModule {
     public SwerveModule(int moduleNumber, SwerveModuleConstants moduleConstants){
         this.moduleNumber = moduleNumber;
         this.angleOffset = moduleConstants.angleOffset;
-        final String canbus = "canivore";
+        final String canbus = "rio";
         
         /* Angle Encoder Config */
         angleEncoder = new CANcoder(moduleConstants.cancoderID,canbus);

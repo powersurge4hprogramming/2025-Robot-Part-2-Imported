@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.autos.*;
 import frc.robot.commands.ClimberUpCommand;
 import frc.robot.commands.TeleopSwerve;
@@ -49,7 +49,7 @@ public class RobotContainer {
     private final Swerve s_Swerve = new Swerve();
     private final ClimberSubsystem climber = new ClimberSubsystem();
     private CommandXboxController operatorButtons = new CommandXboxController(1);
-
+   /*  private CommandXboxController povButtonCommandXboxController = new CommandXboxController(1);*/
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
         s_Swerve.setDefaultCommand(
@@ -80,7 +80,10 @@ public class RobotContainer {
         /* Operator Buttons */
         operatorButtons.leftBumper().onTrue(new ClimberUpCommand(climber));
         operatorButtons.rightBumper().onTrue(new ClimberDownCommand(climber));
-
+/* 
+        POVButton UpPov;
+                        /*kaleb testing something
+                        Object POVButton = UpPov = new POVButton(operatorButtons, 0); */
         /* Auto */
         autoChooser = new SendableChooser<Command>();
     autoChooser.addOption("Hard coded leave", new RunCommand(() -> s_Swerve.drive(new Translation2d(1.5, 0), 0.0, false, false), s_Swerve));
