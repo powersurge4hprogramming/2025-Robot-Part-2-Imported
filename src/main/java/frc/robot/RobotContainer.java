@@ -106,4 +106,8 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         return autoChooser.getSelected();
       }
-}
+
+      public void resetToAbsolute() {
+        s_Swerve.resetModulesToAbsolute();
+      }
+    }
