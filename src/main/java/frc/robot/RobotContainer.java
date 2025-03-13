@@ -90,7 +90,10 @@ public class RobotContainer {
     autoChooser.addOption("Hard coded leave", new RunCommand(() -> s_Swerve.drive(new Translation2d(1.5, 0), 0.0, false, false), s_Swerve));
 
     try {
+        // Get configuration set up in FRC Pathplanner
         RobotConfig driveConfig = RobotConfig.fromGUISettings();
+
+        // Initialize/configure AutoBuilder with methods for controlling the swerve drive with Path Planner
         AutoBuilder.configure(
             s_Swerve::getPose, 
             s_Swerve::setPose, 
@@ -102,6 +105,7 @@ public class RobotContainer {
             ), 
             driveConfig, 
             () -> {
+                // Allows us to alter path here; good for mirroring based on alliance color
                 return false;
             },
             s_Swerve);
