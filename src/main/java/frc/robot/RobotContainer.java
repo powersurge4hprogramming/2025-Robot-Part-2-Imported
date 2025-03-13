@@ -3,6 +3,7 @@ package frc.robot;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.config.PIDConstants;
+import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 
 import edu.wpi.first.math.geometry.Translation2d;
@@ -88,8 +89,35 @@ public class RobotContainer {
         autoChooser = new SendableChooser<Command>();
     autoChooser.addOption("Hard coded leave", new RunCommand(() -> s_Swerve.drive(new Translation2d(1.5, 0), 0.0, false, false), s_Swerve));
 
+    try {
+        RobotConfig driveConfig = RobotConfig.fromGUISettings();
+        AutoBuilder.configure(
+            s_Swerve::getPose, 
+            s_Swerve::setPose, 
+            s_Swerve::getRelativeSpeeds, 
+            (speeds, feedfowards) -> s_Swerve.driveRobotRelative(speeds), 
+            new PPHolonomicDriveController(
+                new PIDConstants(.31,0,.1),
+                new PIDConstants(1,0,0)
+            ), 
+            driveConfig, 
+            () -> {
+                return false;
+            },
+            s_Swerve);
 
-//    autoChooser.setDefaultOption("Red 1",new PathPlannerAuto("Red 1"));
+        // Set up the pathplanner autos
+        autoChooser.addOption("Red 1",AutoBuilder.buildAuto("Red 1"));
+        autoChooser.addOption("Red 2",AutoBuilder.buildAuto("Red 2"));
+        autoChooser.addOption("Red 3",AutoBuilder.buildAuto("Red 3"));
+        autoChooser.addOption("Blue 1",AutoBuilder.buildAuto("Blue 1"));
+        autoChooser.addOption("Blue 2",AutoBuilder.buildAuto("Blue 2"));
+        autoChooser.addOption("Blue 3",AutoBuilder.buildAuto("Blue 3"));
+    } catch (Exception ex) {
+        ex.printStackTrace();
+    }
+
+    // autoChooser.setDefaultOption("Red 1",new PathPlannerAuto("Red 1"));
     // autoChooser.addOption("Red 2",new PathPlannerAuto("Red 2"));
     // autoChooser.addOption("Red 3",new PathPlannerAuto("Red 3"));
     // autoChooser.addOption("Blue 1",new PathPlannerAuto("Blue 1"));
