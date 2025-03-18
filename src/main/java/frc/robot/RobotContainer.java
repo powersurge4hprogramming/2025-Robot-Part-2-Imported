@@ -25,17 +25,53 @@ import frc.robot.commands.ClimberUpCommand;
 import frc.robot.commands.TeleopSwerve;
 import frc.robot.commands.ClimberDownCommand;
 import frc.robot.subsystems.*;
-
+import frc.robot.commands.ClimberDownCommand;
+import frc.robot.commands.ClimberUpCommand;
+/*
+import frc.robot.commands.CoralL1Command;
+import frc.robot.commands.CoralL2Command;
+import frc.robot.commands.CoralL3Command;
+import frc.robot.commands.CoralL4Command;
+import frc.robot.commands.CoralPickupCommand;
+import frc.robot.commands.IntakeCommand;
+import frc.robot.commands.ShootCommand;
+import frc.robot.subsystems.ClimberSubsystem;
+import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
+*/
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
  * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
  * subsystems, commands, and button mappings) should be declared here.
  */
+
+// Copyright (c) FIRST and other WPILib contributors.
+// Open Source Software; you can modify and/or share it under the terms of
+// the WPILib BSD license file in the root directory of this project.
+
+
 public class RobotContainer {
+  private final Joystick driver = new Joystick(0);
+  private CommandXboxController driverButtons = new CommandXboxController(0);
+  private XboxController Operatorcontroller = new XboxController(1);
+  private CommandXboxController OperatorButtons = new CommandXboxController(1);
+  private SendableChooser<Command> autoChooser;
+
+ /* private ElevatorSubsystem elevator;
+  private ShooterSubsystem shooter;
+
+  public ElevatorSubsystem getElevator() {
+    return elevator;
+  }
+
+  public ShooterSubsystem getShooter() {
+    return shooter;
+  }     
+*/
+
     /* Controllers */
-    private final Joystick driver = new Joystick(0);
-    private SendableChooser<Command> autoChooser;
+
 
     /* Drive Controls */
     private final int translationAxis = XboxController.Axis.kLeftY.value;
@@ -81,6 +117,7 @@ public class RobotContainer {
         /* Operator Buttons */
         operatorButtons.leftBumper().onTrue(new ClimberUpCommand(climber));
         operatorButtons.rightBumper().onTrue(new ClimberDownCommand(climber));
+      //  driverButtons.rightTrigger().onTrue(new IntakeCommand(shooter));
 /* 
         POVButton UpPov;
                         /*kaleb testing something
