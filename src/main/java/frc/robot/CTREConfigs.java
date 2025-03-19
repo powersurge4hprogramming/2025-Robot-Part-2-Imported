@@ -7,6 +7,7 @@ public final class CTREConfigs {
     public TalonFXConfiguration swerveAngleFXConfig = new TalonFXConfiguration();
     public TalonFXConfiguration swerveLeftDriveFXConfig = new TalonFXConfiguration();
     public TalonFXConfiguration swerveRightDriveFXConfig = new TalonFXConfiguration();
+    public TalonFXConfiguration swerveDriveFXConfig = swerveLeftDriveFXConfig;
     public CANcoderConfiguration swerveCANcoderConfig = new CANcoderConfiguration();
 
     public CTREConfigs(){
