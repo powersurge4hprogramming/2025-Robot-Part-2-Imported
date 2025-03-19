@@ -1,5 +1,6 @@
 package frc.robot;
 
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.VelocityVoltage;
@@ -46,7 +47,8 @@ public class SwerveModule {
 
         /* Drive Motor Config */
         mDriveMotor = new TalonFX(moduleConstants.driveMotorID,canbus);
-        mDriveMotor.getConfigurator().apply(Robot.ctreConfigs.swerveDriveFXConfig);
+        TalonFXConfiguration config = (moduleNumber % 2 == 1) ? Robot.ctreConfigs.swerveRightDriveFXConfig : Robot.ctreConfigs.swerveLeftDriveFXConfig;
+        mDriveMotor.getConfigurator().apply(config);
         mDriveMotor.getConfigurator().setPosition(0.0);
     }
 
