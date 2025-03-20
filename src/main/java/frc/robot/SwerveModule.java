@@ -39,7 +39,7 @@ public class SwerveModule {
         
         /* Angle Encoder Config */
         angleEncoder = new CANcoder(moduleConstants.cancoderID,canbus);
-//        angleEncoder.getConfigurator().apply(Robot.ctreConfigs.swerveCANcoderConfig);
+        angleEncoder.getConfigurator().apply(Robot.ctreConfigs.swerveCANcoderConfig);
 
         /* Angle Motor Config */
         mAngleMotor = new TalonFX(moduleConstants.angleMotorID,canbus);
@@ -49,7 +49,7 @@ public class SwerveModule {
         /* Drive Motor Config */
         mDriveMotor = new TalonFX(moduleConstants.driveMotorID,canbus);
         TalonFXConfiguration config = Robot.ctreConfigs.swerveDriveFXConfig;
-        config.MotorOutput.Inverted = (moduleNumber % 2 == 0) ? InvertedValue.CounterClockwise_Positive : InvertedValue.Clockwise_Positive;
+        config.MotorOutput.Inverted = (moduleNumber == 3) ? InvertedValue.Clockwise_Positive : InvertedValue.CounterClockwise_Positive;
         mDriveMotor.getConfigurator().apply(Robot.ctreConfigs.swerveDriveFXConfig);
         mDriveMotor.getConfigurator().setPosition(0.0);
     }
