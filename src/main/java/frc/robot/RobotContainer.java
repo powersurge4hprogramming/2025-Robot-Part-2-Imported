@@ -22,6 +22,10 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.autos.*;
 import frc.robot.commands.ClimberUpCommand;
+//import frc.robot.commands.CoralPickupCommand;
+//import frc.robot.commands.ElevatorL2Command;
+//import frc.robot.commands.ElevatorL3Command;
+//import frc.robot.commands.ElevatorL4Command;
 import frc.robot.commands.TeleopSwerve;
 import frc.robot.commands.ClimberDownCommand;
 import frc.robot.subsystems.*;
@@ -57,9 +61,8 @@ public class RobotContainer {
   private XboxController Operatorcontroller = new XboxController(1);
   private CommandXboxController OperatorButtons = new CommandXboxController(1);
   private SendableChooser<Command> autoChooser;
-
- /* private ElevatorSubsystem elevator;
-  private ShooterSubsystem shooter;
+  private ElevatorSubsystem elevator = new ElevatorSubsystem();
+  private ShooterSubsystem shooter = new ShooterSubsystem();
 
   public ElevatorSubsystem getElevator() {
     return elevator;
@@ -68,7 +71,6 @@ public class RobotContainer {
   public ShooterSubsystem getShooter() {
     return shooter;
   }     
-*/
 
     /* Controllers */
 
@@ -117,11 +119,18 @@ public class RobotContainer {
         /* Operator Buttons */
         operatorButtons.leftBumper().onTrue(new ClimberUpCommand(climber));
         operatorButtons.rightBumper().onTrue(new ClimberDownCommand(climber));
+       /* operatorButtons.y().onTrue(new ElevatorL4Command(elevator));
+        operatorButtons.a().onTrue(new ElevatorL3Command(elevator));
+        operatorButtons.b().onTrue(new ElevatorL2Command(elevator));
+        operatorButtons.x().onTrue(new CoralPickupCommand(elevator));
+        */
       //  driverButtons.rightTrigger().onTrue(new IntakeCommand(shooter));
-/* 
-        POVButton UpPov;
-                        /*kaleb testing something
-                        Object POVButton = UpPov = new POVButton(operatorButtons, 0); */
+      operatorButtons.povUp().onTrue(new InstantCommand(() -> { elevator.increasePosition(); }));
+      operatorButtons.povDown().onTrue(new InstantCommand(() -> { elevator.decreasePosition(); }));
+      /* 
+POVButton UpPov;
+/*kaleb testing something
+Object POVButton = UpPov = new POVButton(operatorButtons, 0); */
         /* Auto */
         autoChooser = new SendableChooser<Command>();
     autoChooser.addOption("Hard coded leave", new RunCommand(() -> s_Swerve.drive(new Translation2d(1.5, 0), 0.0, false, false), s_Swerve));

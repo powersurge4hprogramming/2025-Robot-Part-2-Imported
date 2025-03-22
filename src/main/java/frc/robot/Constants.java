@@ -14,6 +14,8 @@ import frc.lib.util.SwerveModuleConstants;
 
 public final class Constants {
     public static final double stickDeadband = 0.1;
+    public static final String ElevatorConstants = null;
+    public static final String AlgaeArmConstants = null;
 
     public static final class Swerve {
         public static final int pigeonID = 14;
@@ -46,9 +48,9 @@ public final class Constants {
         public static final SensorDirectionValue cancoderInvert = chosenModule.cancoderInvert;
 
         /* Swerve Current Limiting */
-        public static final int angleCurrentLimit = 25;
-        public static final int angleCurrentThreshold = 40;
-        public static final double angleCurrentThresholdTime = 0.1;
+        public static final int angleCurrentLimit = 1;
+        public static final int angleCurrentThreshold = 5;
+        public static final double angleCurrentThresholdTime = 10;
         public static final boolean angleEnableCurrentLimit = true;
 
         public static final int driveCurrentLimit = 35;
@@ -58,7 +60,7 @@ public final class Constants {
 
         /* These values are used by the drive falcon to ramp in open loop and closed loop driving.
          * We found a small open loop ramp (0.25) helps with tread wear, tipping, etc */
-        public static final double openLoopRamp = 0.25;
+        public static final double openLoopRamp = 0.75;
         public static final double closedLoopRamp = 0.0;
 
         /* Angle Motor PID Values */
@@ -84,7 +86,7 @@ public final class Constants {
         public static final double maxAngularVelocity = 10.0; //TODO: This must be tuned to specific robot
 
         /* Neutral Modes */
-        public static final NeutralModeValue angleNeutralMode = NeutralModeValue.Coast;
+        public static final NeutralModeValue angleNeutralMode = NeutralModeValue.Brake;
         public static final NeutralModeValue driveNeutralMode = NeutralModeValue.Brake;
 
         /* Module Specific Constants */
