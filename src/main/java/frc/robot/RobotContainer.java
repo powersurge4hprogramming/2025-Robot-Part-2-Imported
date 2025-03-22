@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.autos.*;
 import frc.robot.commands.ClimberUpCommand;
+//import frc.robot.commands.IntakeCommand;
 //import frc.robot.commands.CoralPickupCommand;
 //import frc.robot.commands.ElevatorL2Command;
 //import frc.robot.commands.ElevatorL3Command;
@@ -125,8 +126,8 @@ public class RobotContainer {
         operatorButtons.x().onTrue(new CoralPickupCommand(elevator));
         */
       //  driverButtons.rightTrigger().onTrue(new IntakeCommand(shooter));
-      operatorButtons.povUp().onTrue(new InstantCommand(() -> { elevator.increasePosition(); }));
-      operatorButtons.povDown().onTrue(new InstantCommand(() -> { elevator.decreasePosition(); }));
+      operatorButtons.rightStick().onTrue(new InstantCommand(() -> { elevator.increasePosition(); }));
+      operatorButtons.leftStick().onTrue(new InstantCommand(() -> { elevator.decreasePosition(); }));
       /* 
 POVButton UpPov;
 /*kaleb testing something

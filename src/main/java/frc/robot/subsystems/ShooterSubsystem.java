@@ -2,6 +2,9 @@ package frc.robot.subsystems;
 
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
+
+import java.util.function.DoubleSupplier;
+
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.TalonFX;
@@ -61,7 +64,7 @@ public class ShooterSubsystem extends SubsystemBase {
     }
 
     public void setShoot() {
-//        armMotor.setPosition(); 
+    //    armMotor().setPosition(); 
     }
 
     public void setPower(double p) {

@@ -17,7 +17,7 @@ import frc.robot.utils.Constants;
 import frc.robot.utils.Constants.ElevatorConstants;
 
 public class ElevatorSubsystem extends SubsystemBase {
-    private final TalonFX primaryMotor;
+    private final TalonFX elevatorMotor;
     private final StatusSignal<Double> encoder;
     private final DigitalInput bottomLimit;
     private final DigitalInput topLimit;
@@ -48,9 +48,9 @@ Elevator    REV Through Bore Encoder    Elevator Output SparkMax    n/a
 Elevator    NEO Intake  CAN: roborio    20
 */
     public ElevatorSubsystem() {
-        primaryMotor = new TalonFX(Constants.ElevatorConstants.elevatorID, Constants.ElevatorConstants.elevatorCAN);
+        elevatorMotor = new TalonFX(Constants.ElevatorConstants.elevatorID, Constants.ElevatorConstants.elevatorCAN);
     
-        encoder = primaryMotor.getDifferentialOutput();
+        encoder = elevatorMotor.getDifferentialOutput();
         bottomLimit = new DigitalInput(ElevatorConstants.bottomlimitSwitchPort);
         topLimit = new DigitalInput(ElevatorConstants.toplimitSwitchPort);
 
@@ -60,24 +60,24 @@ Elevator    NEO Intake  CAN: roborio    20
 
     private void homeElevator() {
         while (!bottomLimit.get()) {
-            primaryMotor.set(-.1);
+            elevatorMotor.set(-.1);
         }
-        primaryMotor.set(0);
+        elevatorMotor.set(0);
         isHomed = true;
     }
 
     private void configureMotors() {
         // Primary motor configuration
-        primaryMotor.setNeutralMode(NeutralModeValue.Brake);
+        elevatorMotor.setNeutralMode(NeutralModeValue.Brake);
             TalonFXConfiguration motorConfig = new TalonFXConfiguration();
             motorConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
-            primaryMotor.getConfigurator().apply(motorConfig);
+            elevatorMotor.getConfigurator().apply(motorConfig);
 
             Slot0Configs slot = new Slot0Configs();
             slot.kP = .1;
             slot.kI = 0;
             slot.kD = 0;
-            primaryMotor.getConfigurator().apply(slot);
+            elevatorMotor.getConfigurator().apply(slot);
 
         }
 
@@ -101,7 +101,7 @@ Elevator    NEO Intake  CAN: roborio    20
         } else if (diff > 0 && topLimit.get()) {
             stopElevator();
         } else {
-            primaryMotor.setPosition(position);
+            elevatorMotor.setPosition(position);
         }
     }
 
@@ -114,7 +114,7 @@ Elevator    NEO Intake  CAN: roborio    20
         } else if (diff > 0 && topLimit.get()) {
             stopElevator();
         } else {
-            primaryMotor.setPosition(position);
+            elevatorMotor.setPosition(position);
         }
     }
 
@@ -124,7 +124,7 @@ Elevator    NEO Intake  CAN: roborio    20
         currentPos = encoder.getValueAsDouble() / ElevatorConstants.countsPerInch;
     }
     public void stopElevator() {
-        primaryMotor.set(0);
+        elevatorMotor.set(0);
     }
  
     public DoubleConsumer getmotorconsumer(){
