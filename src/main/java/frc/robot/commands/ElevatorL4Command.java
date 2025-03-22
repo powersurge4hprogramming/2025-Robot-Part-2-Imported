@@ -4,7 +4,7 @@ import frc.robot.Constants;
 import frc.robot.subsystems.ElevatorSubsystem;
 import edu.wpi.first.math.controller.PIDController;
 
-/*public class ElevatorL4Command extends PIDCommand { 
+public class ElevatorL4Command extends PIDCommand { 
     private final ElevatorSubsystem elevator ;
     private boolean hold = true;
 
@@ -30,4 +30,3 @@ import edu.wpi.first.math.controller.PIDController;
         return (hold) ? false : getController().atSetpoint();
     }
 }
-    */

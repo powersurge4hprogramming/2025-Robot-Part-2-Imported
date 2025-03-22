@@ -13,14 +13,15 @@ public class Constants {
         public static final int toplimitSwitchPort = 2;
         public static final int intakelimitID = 3;
         public static final int countsPerInch = 0;
-        public static final double kp = 0; 
-        public static final double ki = 0; 
-        public static final double kd = 0;
+        public static final double kp = 1;
+        public static final double ki = 1; 
+        public static final double kd = 1;
         public static final int Level4 = 174;
         public static final int Level3 = 85;
         public static final int Level2 = 40;
         public static final int Level1 = 10;
         public static final int CORAL_STATION = 0;
+        public static final String L4 = null;
     }
 
     public static class ClimberConstants {
