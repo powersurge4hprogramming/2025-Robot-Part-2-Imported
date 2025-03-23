@@ -12,6 +12,7 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.Constants;
 import frc.robot.utils.Constants.ElevatorConstants;
@@ -22,6 +23,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     private final DigitalInput bottomLimit;
     private final DigitalInput topLimit;
     private double currentPos = 0;
+    private  double homeOffset;
+    private final double kMaxRotation = 1;
 
     private boolean isHomed = false;
 /* 
@@ -117,6 +120,15 @@ Elevator    NEO Intake  CAN: roborio    20
             elevatorMotor.setPosition(position);
         }
     }
+    
+    public double getCurrentPosition() {
+        StatusSignal<Double> p = elevatorMotor.getDifferentialOutput();
+        return p.getValueAsDouble();
+    }
+
+    public void home(){
+        homeOffset = getCurrentPosition();
+    }
 
     @Override
     public void periodic() {
@@ -127,7 +139,15 @@ Elevator    NEO Intake  CAN: roborio    20
         elevatorMotor.set(0);
     }
  
-    public DoubleConsumer getmotorconsumer(){
-    return (v) -> setElevatorPower(v);
+    public void setPower(double p) {
+        elevatorMotor.set(p);
+    }
+    
+    public boolean isDown() {
+        return (getCurrentPosition() > (homeOffset + kMaxRotation));
+    }
+
+    public boolean isUp() {
+        return (getCurrentPosition() > (homeOffset + kMaxRotation));
     }
 }
